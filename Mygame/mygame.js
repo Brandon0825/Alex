@@ -55,7 +55,8 @@ game_state.main.prototype = {
             fill: '#000'
         });
      this.score = 0;
-        
+     this.alreadyDropped = false
+    
     },
 
 
@@ -78,15 +79,14 @@ game_state.main.prototype = {
             this.player.body.velocity.y = -350;
             
         }
-        if this.score.is.12 {
-        }
-    else {
-        var star = this.stars.create(i * 70, 0, 'star');
-            star.body.gravity.y = 300;
-            star.body.bounce.y = 0.7 + Math.random() * 0.2;
-        }
-    }
-            this.)
+        
+        if(this.score % 12 === 0 && this.alreadyDropped === false && this.score != 0){
+            this.alreadyDropped = true
+            for (var i = 0; i < 14; i++) {
+                var star = this.stars.create(i * 70, 0, 'star');
+                star.body.gravity.y = 300;
+                star.body.bounce.y = 0.7 + Math.random() * 0.2;
+            }
         }
         
         game.physics.arcade.collide(this.stars, this.platforms);
@@ -95,11 +95,10 @@ game_state.main.prototype = {
     collectStar: function(player, star) {
        star.kill();
         this.score++
-        this.scoreText.text = "score:" + this.score
+        this.scoreText.text = "Score:" + this.score
+        this.alreadyDropped = false
     }
 }
-
-
 
 
 game.state.add('main', game_state.main);
